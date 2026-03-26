@@ -1,128 +1,142 @@
 
 <img width="750" alt="Screenshot 2024-12-02 at 9 30 46 PM" src="https://github.com/user-attachments/assets/0971f968-5432-4d1c-aad9-16d745a5c663">
 
- # **Healthcare Analytics Project**  
-*Predicting Diabetes Risk Using Machine Learning*
+ # **Student Performance Analysis System**  
+*Exploratory Data Analysis of Student Academic Performance Using Python*
 
 ---
 
 ## **Overview**
-This project analyzes patient health metrics to predict diabetes risk using a modular, production-style machine learning pipeline.  
+This project analyzes synthetic student academic data to understand performance trends, identify top and low-performing students, and derive meaningful educational insights using Exploratory Data Analysis (EDA).
+
 The workflow includes:
 
-- Data preprocessing and cleaning  
-- Exploratory data analysis (EDA)  
-- Model training using a recall-optimized Random Forest  
-- Standardized model evaluation  
-- Optional command-line prediction generation  
+- Synthetic dataset generation (250 students)
+- Data preprocessing and cleaning
+- Descriptive statistical analysis
+- Student performance metrics calculation
+- Department, gender, and year-wise analysis
+- Relationship analysis (attendance vs performance, internal marks vs performance)
+- Data visualization using charts and graphs
+- CSV dataset generation for reporting and analysis
 
-The objective is to demonstrate an analytics engineering approach that is **reproducible, interpretable, and clinically meaningful**, especially for use cases where reducing false negatives matters.
-
+The objective is to demonstrate a structured data analytics approach that is reproducible, interpretable, and useful for educational decision-making.
 ---
 
 ## **Dataset**
-**Source:** Public diabetes dataset inspired by the Pima Indians dataset  
-**Description:** Includes features such as glucose, BMI, blood pressure, insulin, age, diabetes pedigree function, and an outcome label indicating diabetes status.
+Source: Synthetic dataset generated using Python
+Description: Contains student academic and demographic information including marks, attendance, department, and internal scores.
 
+Dataset Features
+Student_ID
+Name
+Gender
+Department (CSE, IT, ECE)
+Year (1st, 2nd, 3rd)
+Maths Marks
+Science Marks
+English Marks
+Attendance (%)
+Internal Marks (0–25)
+Total Marks
+Average Marks
+Grade
+
+The dataset simulates real-world academic performance data for 250 students.
 ---
 
 ## **Objectives**
-1. Explore patient health metrics and identify meaningful predictors.  
-2. Build an ML classifier optimized for **high recall** (minimizing false negatives).  
-3. Use a modular, production-inspired project structure.  
-4. Provide clear evaluation metrics and interpretable insights.  
-5. Develop a scalable baseline for future healthcare analytics workflows.
+1. Generate a synthetic dataset representing student academic records.
+2. Perform data cleaning and preprocessing to ensure data consistency.
+3. Apply descriptive statistics such as mean, median, and standard deviation.
+4. Calculate performance metrics like total marks, average marks, and grades.
+5. Identify top-performing and low-performing students.
+6. Analyze department-wise, gender-wise, and year-wise performance.
+7. Study relationships between attendance, internal marks, and academic performance.
+8. Visualize insights using graphs and charts.
+9. Generate a CSV dataset for further analysis and reporting.
 
 ---
 
 ## **Project Highlights**
 
-### **1. Data Preprocessing**
-- Converted non-physiological zero values to missing values  
-- Applied median imputation across relevant fields  
-- Centralized all cleaning logic in `src/data/clean_data.py`  
+### **1. Data Generation**
+- Generated 250 synthetic student records using Python
+- Used random distributions for marks, attendance, and departments
+- Ensured realistic academic data ranges
+- Created structured dataset using Pandas DataFrame
 
 ### **2. Exploratory Data Analysis (EDA)**
-- Investigated variable distributions, correlations, and feature interactions  
-- Identified glucose, BMI, age, and pedigree function as key predictors  
-- Restricted notebooks to exploratory purposes only; production logic is modular  
+The project performs detailed analysis including:
 
-### **3. Machine Learning Model**
-- Used a `RandomForestClassifier` with class weighting to address imbalance  
-- Performed hyperparameter tuning via GridSearchCV (scoring = recall)  
-- Implemented training and evaluation pipelines in `src/models/`  
-- Saved the final trained model to the `models/` directory  
+- Mean, median, and standard deviation of marks
+- Distribution of subject-wise marks
+- Average performance of students
+- Grade classification and performance trends
+- Identification of high and low performers
+
+EDA helps understand academic performance patterns and variations.
+
+### **3. Performance Analysis**
+- Top Performing Students
+- Highest average marks
+- Grade A students
+- High attendance
+- Low Performing Students
+- Fail category
+- Low attendance
+- Low internal marks
+
+This helps institutions identify:
+
+- Academic excellence
+- Students needing support
 
 ### **4. Visualization**
-Tools provided in `src/visualization/` include:
+The project includes:
 
-- ROC curve generation  
-- Feature importance visualization  
-- Confusion matrix plotting  
+- Bar charts for department and gender analysis
+- Pie charts for grade distribution
+- Histograms for marks distribution
+- Scatter plots for relationships
+- Box plots for subject comparison
+
+Visualizations make insights clear and easy to interpret. 
 
 ---
 
 ## **Tools and Technologies**
-- Python  
-- pandas  
-- numpy  
-- scikit-learn  
-- matplotlib  
-- joblib  
-- argparse  
-- Jupyter Notebook  
-- Modular analytics engineering structure
+- Python
+- Pandas
+- NumPy
+- Matplotlib
+- Seaborn
+- Google Colab
+- Jupyter Notebook
+- CSV File Storage
 
 ---
 
 ## **Results**
 
-### **Final Model Performance (Hold-Out Test Set)**
-- Accuracy: 0.747  
-- Precision: 0.632  
-- Recall: 0.667  
-- F1 Score: 0.649  
-- ROC AUC: 0.821  
+### **Key Findings**
+- Average marks vary across departments
+- Higher attendance improves performance
+- Internal marks positively affect final results
+- Grade distribution shows majority in B and C category
+- Top students maintain high attendance and internal scores
+- Low-performing students usually have low attendance 
 
 ### **Interpretation**
-- **Recall (0.667):** The model captures most true diabetes cases, aligning with the priority of reducing false negatives.  
-- **ROC AUC (0.821):** Indicates strong class separability and reliable predictive discrimination.  
-- Precision and F1 remain balanced while recall is prioritized.
+- Department-wise analysis helps identify strong academic departments.
+- Attendance correlation shows student engagement improves results.
+- Grade distribution helps in academic monitoring.
+- Performance metrics enable better decision-making.
 
-Earlier experimental approaches—threshold shifting, SMOTE oversampling, and initial hyperparameter tuning—helped guide the final implementation.  
-The structured pipeline improves clarity, reproducibility, and engineering quality without sacrificing clinical relevance.
-
----
-
-## **Pipeline Usage**
-
-### **Training the Model**
-Run the following command:
-
-    python main.py train
-
-This handles data cleaning, splitting, hyperparameter tuning, model evaluation, and saving the final model.
-
-### **Generating Predictions**
-To create predictions:
-
-    python main.py predict --input data/raw/diabetes.csv --output predictions.csv
-
-The output file will contain a new column named `prediction`.
-
----
-
-## **Future Improvements**
-- Decision threshold tuning for recall/precision optimization  
-- Optional SMOTE or alternative class balancing  
-- SHAP for interpretability  
-- FastAPI for real-time scoring  
-- MLflow for experiment tracking  
-- Unit testing and CI/CD pipeline integration  
-
+The structured EDA approach improves clarity, reproducibility, and analytical quality of student performance analysis.
 ---
 
 ## **Author**
-**Julian Charlan Kelly**  
-Analytics Engineer / Data Engineer  
-Los Angeles, CA
+**Shree Pranava Ganesh**  
+Student at Kamaraj College
+Thoothukudi, Tamil Nadu
